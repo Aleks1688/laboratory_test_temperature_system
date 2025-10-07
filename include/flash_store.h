@@ -5,8 +5,8 @@
 
 #include <Arduino.h>
 
-void setupStorage();
-void saveData(const char* key, const char* value);
-String loadData(const char* key);
+void setupStorage(); // Initialize SPIFFS or NVS
+void saveData(const char* key, const char* value); 
+String loadData(const char* key); 
 
 #endif // FLASH_STORE_H

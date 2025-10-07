@@ -4,6 +4,7 @@
 #include <SPI.h>  // Для SPIClass
 #include <Adafruit_MAX31856.h>  // Для maxthermo
 #include "temp_sensor.h"
+#include "relay_control.h"  // Для relaySem
 
 SPIClass *vspi = new SPIClass(VSPI);  // VSPI for MAX31856
 Adafruit_MAX31856 maxthermo(MAX_CS);  // CS from config
