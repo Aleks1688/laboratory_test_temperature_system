@@ -3,36 +3,34 @@
 #include <Arduino.h>
 #include "relay_control.h"
 #include "temp_sensor.h"
-#include "secrets.h"
-#include <WiFi.h>
-#include <PubSubClient.h>
+#include "mqtt_client.h"
+#include "globals.h"
 
-WiFiClient espClient;
-PubSubClient client(espClient);
-
-SemaphoreHandle_t relaySem = NULL;  // Global semaphore
 
 void setup() {
   Serial.begin(115200);
 
-  setupRelays();
-  setupTempSensor();
-
-  // Connect to WiFi
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+    // создаём семафоры здесь
+  relaySem = xSemaphoreCreateBinary();
+  if (relaySem == NULL) {
+    Serial.println("[ERR] relaySem failed");
+    while (1);
   }
-  Serial.println("\n[WiFi] Connected!");
+  tempSem = xSemaphoreCreateBinary();
+  if (tempSem == NULL) {
+    Serial.println("[ERR] tempSem failed");
+    while (1);
+  }
 
-  // MQTT setup
-  client.setServer(mqtt_server, mqtt_port);
-
+  setupRelays(); // Init relays
+  setupTempSensor(); // Init MAX31856
+  setupMqtt();  // Init WiFi/MQTT
+  
   delay(500);
 
-  xTaskCreate(relayTask, "RelayTask", 2048, NULL, 1, NULL);
-  xTaskCreate(tempSensorTask, "TempSensorTask", 4096, NULL, 1, NULL);
+  xTaskCreate(relayTask, "RelayTask", 2048, NULL, 1, NULL); // Task for relay switching
+  xTaskCreate(tempSensorTask, "TempSensorTask", 4096, NULL, 1, NULL); // Task for reading temp
+  xTaskCreate(mqttTask, "MqttTask", 4096, NULL, 1, NULL);  // Task for MQTT
 
   Serial.println("[SYSTEM] Setup complete, all relays OFF, tasks started.");
 }
