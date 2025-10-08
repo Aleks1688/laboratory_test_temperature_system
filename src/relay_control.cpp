@@ -54,6 +54,7 @@ void relayTask(void *pvParameters) {
     
     vTaskDelay(pdMS_TO_TICKS(200));  // Delay after on for stable before signal temp
     xSemaphoreGive(relaySem);  // Give signal to temp task (release semaphore)
+    Serial.println("[SYNC] Сигнал от реле к датчику отправлен.");
 
     // Шаг 6: Ждём интервал для следующего переключения (switchInterval минус разрядка, чтобы итого 2000ms)
     vTaskDelay(pdMS_TO_TICKS(switchInterval - 300));  // Не грузит CPU, FreeRTOS scheduler работает
