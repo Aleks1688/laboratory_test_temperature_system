@@ -53,6 +53,7 @@ void relayTask(void *pvParameters) {
     Serial.println(")");
     
     vTaskDelay(pdMS_TO_TICKS(200));  // Delay after on for stable before signal temp
+    // Шаг 5: Сигнализируем задаче датчика, что реле переключено и можно читать (release semaphore)
     xSemaphoreGive(relaySem);  // Give signal to temp task (release semaphore)
     Serial.println("[SYNC] Сигнал от реле к датчику отправлен.");
 
