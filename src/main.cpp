@@ -4,23 +4,24 @@
 #include "relay_control.h"
 #include "temp_sensor.h"
 #include "mqtt_client.h"
-#include "globals.h"
+#include "config.h"
 
+SemaphoreHandle_t relaySem = NULL;  // Глобальный семафор relay -> temp
+SemaphoreHandle_t tempSem = NULL;  // Глобальный семафор temp -> mqtt
 
 void setup() {
   Serial.begin(115200);
 
-    // создаём семафоры здесь
-  relaySem = xSemaphoreCreateBinary();
-  if (relaySem == NULL) {
-    Serial.println("[ERR] relaySem failed");
-    while (1);
-  }
-  tempSem = xSemaphoreCreateBinary();
-  if (tempSem == NULL) {
-    Serial.println("[ERR] tempSem failed");
-    while (1);
-  }
+// Создаём семафоры для sync (binary — 0/1, старт 0 = жди)
+relaySem = xSemaphoreCreateBinary();
+tempSem = xSemaphoreCreateBinary();
+
+if (relaySem == NULL || tempSem == NULL) {
+  Serial.println("[ERR] Семафоры не созданы! Остановка.");
+  while (1);  // Stop if error, safety
+}
+Serial.println("[SYNC] Семафоры созданы для sync задач.");
+
 
   setupRelays(); // Init relays
   setupTempSensor(); // Init MAX31856

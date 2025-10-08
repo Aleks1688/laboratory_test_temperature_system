@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 #include "relay_control.h"
-#include "globals.h"  // Для relaySem
+#include "config.h"
 
 void setupRelays() {
   // Настраиваем все пины как выходы и ставим в выкл состояние
