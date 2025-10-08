@@ -1,46 +1,42 @@
 // MQTT и WiFi
 
 #include "mqtt_client.h"
-#include <WiFi.h>  // Для WiFi.begin
-#include <PubSubClient.h>  // Для MQTT
-#include "secrets.h" // Для ssid/pass и mqtt данные
+#include <WiFi.h>
+#include <PubSubClient.h>
+#include "secrets.h"
 
-WiFiClient espClient;  // WiFi клиент for MQTT
-PubSubClient client(espClient);  // MQTT клиент
+WiFiClient espClient;
+PubSubClient client(espClient);
 
 void setupMqtt() {
-  // Connect to WiFi from secrets.h
-  WiFi.begin(ssid, password);  // ssid/pass from secrets.h
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);  // Wait for connect, 500ms per try
-    Serial.print(".");
-  }
-  Serial.println("\n[WiFi] Connected to " + String(ssid));
+    // Connect to WiFi
+    WiFi.begin(ssid, password);
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
+    Serial.println("\n[WiFi] Connected to " + String(ssid));
 
-  // MQTT setup
-  client.setServer(mqtt_server, mqtt_port);  // broker/port from secrets.h
-  client.connect("ESP32Client", mqtt_user, mqtt_pass);  // Connect with user/pass, ID "ESP32Client"
-  if (client.connected()) {
-    Serial.println("[MQTT] Connected to broker " + String(mqtt_server));
-  } else {
-    Serial.println("[ERR] MQTT connect failed! Check broker/user/pass.");
-  }
+    // MQTT setup - теперь всё должно работать, т.к. типы совпадают
+    client.setServer(mqtt_server, mqtt_port);
+    
+    if (client.connect("ESP32Client", mqtt_user, mqtt_pass)) {
+        Serial.println("[MQTT] Connected to broker " + String(mqtt_server));
+    } else {
+        Serial.println("[ERR] MQTT connect failed! rc=" + String(client.state()));
+    }
 }
 
 void mqttTask(void *pvParameters) {
-  while (1) {
-    // Reconnect if lost (industrial reliability: check every 5sec)
-    if (!client.connected()) {
-      Serial.println("[MQTT] Reconnecting...");
-      client.connect("ESP32Client", mqtt_user, mqtt_pass);
-      vTaskDelay(pdMS_TO_TICKS(5000));  // Wait 5sec before retry
-    } else {
-      client.loop();  // Keep MQTT alive (subscribe/publish if needed)
+    while (1) {
+        if (!client.connected()) {
+            Serial.println("[MQTT] Reconnecting...");
+            if (client.connect("ESP32Client", mqtt_user, mqtt_pass)) {
+                Serial.println("[MQTT] Reconnected!");
+            }
+            vTaskDelay(pdMS_TO_TICKS(5000));
+        }
+        client.loop();
+        vTaskDelay(pdMS_TO_TICKS(1000));
     }
-
-    // Publish data here later (temp, relay etc. in JSON)
-    // e.g., client.publish("topic", "data");
-
-    vTaskDelay(pdMS_TO_TICKS(1000));  // Check every 1sec
-  }
 }
