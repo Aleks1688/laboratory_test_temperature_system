@@ -1,41 +1,49 @@
-// инициализация, FreeRTOS задачи
-
 #include <Arduino.h>
+#include "config.h"
 #include "relay_control.h"
 #include "temp_sensor.h"
 #include "mqtt_client.h"
-#include "config.h"
 
-SemaphoreHandle_t relaySem = NULL;  // Глобальный семафор relay -> temp
-SemaphoreHandle_t tempSem = NULL;  // Глобальный семафор temp -> mqtt
+// Глобальные семафоры для синхронизации
+SemaphoreHandle_t relaySem = NULL;
+SemaphoreHandle_t tempSem = NULL;
+
+// Глобальные переменные для обмена данными между задачами
+uint8_t currentRelay = 0;
+float lastTemp = 0.0f;
+float lastCJTemp = 0.0f;
+uint8_t lastFault = 0;
 
 void setup() {
   Serial.begin(115200);
+  Serial.println("\n[SYSTEM] Booting...");
 
-// Создаём семафоры для sync (binary — 0/1, старт 0 = жди)
-relaySem = xSemaphoreCreateBinary();
-tempSem = xSemaphoreCreateBinary();
+  // Создаем семафоры
+  relaySem = xSemaphoreCreateBinary();
+  tempSem = xSemaphoreCreateBinary();
 
-if (relaySem == NULL || tempSem == NULL) {
-  Serial.println("[ERR] Семафоры не созданы! Остановка.");
-  while (1);  // Stop if error, safety
-}
-Serial.println("[SYNC] Семафоры созданы для sync задач.");
+  if (relaySem == NULL || tempSem == NULL) {
+    Serial.println("[FATAL] Could not create semaphores. Halting.");
+    while (1);
+  }
+  Serial.println("[SYSTEM] Semaphores created.");
 
+  // Инициализация модулей в правильном порядке
+  setupRelays();
+  setupTempSensor();
+  setupMqtt();
 
-  setupRelays(); // Init relays
-  setupTempSensor(); // Init MAX31856
-  setupMqtt();  // Init WiFi/MQTT
-  
-  delay(500);
+  // Создание задач FreeRTOS
+  // Задаче датчика даем приоритет повыше, чтобы она выполнялась сразу после сигнала
+  xTaskCreate(relayTask, "RelayTask", 2048, NULL, 1, NULL);
+  xTaskCreate(tempSensorTask, "TempSensorTask", 4096, NULL, 2, NULL);
+  xTaskCreate(mqttTask, "MqttTask", 4096, NULL, 1, NULL);
 
-  xTaskCreate(relayTask, "RelayTask", 2048, NULL, 1, NULL); // Task for relay switching
-  xTaskCreate(tempSensorTask, "TempSensorTask", 4096, NULL, 1, NULL); // Task for reading temp
-  xTaskCreate(mqttTask, "MqttTask", 4096, NULL, 1, NULL);  // Task for MQTT
-
-  Serial.println("[SYSTEM] Setup complete, all relays OFF, tasks started.");
+  Serial.println("[SYSTEM] Setup complete. Tasks are running.");
 }
 
 void loop() {
-  // Empty
+  // Пусто. Вся логика в задачах FreeRTOS.
+  // Удаляем задачу loop(), чтобы она не тратила ресурсы процессора.
+  vTaskDelete(NULL);
 }

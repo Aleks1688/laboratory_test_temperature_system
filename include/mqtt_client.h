@@ -1,22 +1,29 @@
 // MQTT/WiFi
 
+
 #ifndef MQTT_CLIENT_H
 #define MQTT_CLIENT_H
 
-#include <Arduino.h>  // Для Serial, String
+#include <Arduino.h> // Нужен для стандартных типов и FreeRTOS
 
+// --- Объявления для доступа из других файлов ---
 
-void setupMqtt();  // Инициализация WiFi и MQTT
-void mqttTask(void *pvParameters);  // Таск для reconnect и publish
+// Семафор, который мы "берем"
+extern SemaphoreHandle_t tempSem;
 
-// Объявляем внешние переменные
+// Глобальные переменные, которые мы будем читать
+extern uint8_t currentRelay;
 extern float lastTemp;
 extern float lastCJTemp;
 extern uint8_t lastFault;
-extern SemaphoreHandle_t tempSem;
 
+
+// --- Прототипы функций ---
+
+// Функция инициализации Wi-Fi и MQTT. Вызывается один раз в setup().
 void setupMqtt();
+
+// Функция задачи FreeRTOS. Будет работать в бесконечном цикле.
 void mqttTask(void *pvParameters);
-void publishTemperature(float temp, float cjTemp, uint8_t fault);
 
 #endif // MQTT_CLIENT_H
