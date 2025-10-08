@@ -7,6 +7,11 @@
 #include "relay_control.h"  // Для relaySem
 #include "config.h"
 
+// Определяем глобальные переменные
+float lastTemp = 0.0f;
+float lastCJTemp = 0.0f;
+uint8_t lastFault = 0;
+
 SPIClass *vspi = new SPIClass(VSPI);  // VSPI for MAX31856
 Adafruit_MAX31856 maxthermo(MAX_CS);  // CS from config
 

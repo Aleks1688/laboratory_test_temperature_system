@@ -18,4 +18,5 @@ void tempSensorTask(void *pvParameters);
 // Thermocouple type for MAX31856 (K-type as in old code, from datasheet linearization)
 #define THERMOCOUPLE_TYPE MAX31856_TCTYPE_K // K-type thermocouple
 
+
 #endif // TEMP_SENSOR_H
