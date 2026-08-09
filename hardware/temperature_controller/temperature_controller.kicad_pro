@@ -1,0 +1,121 @@
+{
+    "board": {
+        "design_settings": {
+            "aux_axis_origin": [
+                0,
+                0
+            ],
+            "board_thickness": 1.6,
+            "copper_layer_count": 2,
+            "defaults": {
+                "board_outline_line_width": 0.1,
+                "copper_fill_line_width": 0.2,
+                "copper_line_width": 0.2,
+            },
+        },
+        "layers": [
+            {"id": 0, "name": "F.Cu",   "type": "copper", "user_enabled": true},
+            {"id": 31, "name": "B.Cu",  "type": "copper", "user_enabled": true},
+            {"id": 32, "name": "B.Adhes", "type": "adhesive", "user_enabled": false},
+            {"id": 33, "name": "F.Adhes", "type": "adhesive", "user_enabled": false},
+            {"id": 34, "name": "B.Paste","type": "paste",   "user_enabled": false},
+            {"id": 35, "name": "F.Paste","type": "paste",   "user_enabled": false},
+            {"id": 36, "name": "B.SilkS","type": "silkscreen", "user_enabled": true},
+            {"id": 37, "name": "F.SilkS","type": "silkscreen", "user_enabled": true},
+            {"id": 38, "name": "B.Mask", "type": "soldermask", "user_enabled": true},
+            {"id": 39, "name": "F.Mask", "type": "soldermask", "user_enabled": true},
+            {"id": 40, "name": "Dwgs.User", "type": "user_drawing", "user_enabled": false},
+            {"id": 41, "name": "Cmts.User", "type": "ecrc_user", "user_enabled": false},
+            {"id": 42, "name": "Eco1.User", "type": "ecrc_user", "user_enabled": false},
+            {"id": 43, "name": "Eco2.User", "type": "ecrc_user", "user_enabled": false},
+            {"id": 44, "name": "Edge.Cuts", "type": "edge_cut", "user_enabled": true},
+            {"id": 45, "name": "Margin",  "type": "margin", "user_enabled": false},
+            {"id": 46, "name": "B.CrtYd", "type": "courtyard", "user_enabled": false},
+            {"id": 47, "name": "F.CrtYd", "type": "courtyard", "user_enabled": false},
+            {"id": 48, "name": "B.Fab",   "type": "fab",     "user_enabled": false},
+            {"id": 49, "name": "F.Fab",   "type": "fab",     "user_enabled": false}
+        ],
+        "net_class_defaults": {
+            "net_class": "Default",
+            "clearance": 0.2,
+            "track_width": 0.25,
+            "via_diameter": 0.8,
+            "via_drill": 0.4,
+            "uvia_diameter": 0.3,
+            "uvia_drill": 0.1
+        }
+    },
+    "design_settings": {},
+    "erc_settings": {},
+    "meta": {
+        "filename": "temperature_controller.kicad_pro",
+        "version": 1
+    },
+    "net_settings": {
+        "classes": [
+            {
+                "bus_width": 12,
+                "clearance": 0.2,
+                "diff_pair_gap": 0.25,
+                "diff_pair_via_gap": 0.25,
+                "diff_pair_width": 0.2,
+                "line_style": 0,
+                "microvia_diameter": 0.3,
+                "microvia_drill": 0.1,
+                "name": "Default",
+                "pcb_color": "rgba(0, 0, 0, 0.000)",
+                "schematic_color": "rgba(0, 0, 0, 0.000)",
+                "track_width": 0.25,
+                "via_diameter": 0.8,
+                "via_drill": 0.4,
+                "wire_width": 6
+            },
+            {
+                "bus_width": 12,
+                "clearance": 2.5,
+                "diff_pair_gap": 0.25,
+                "diff_pair_via_gap": 0.25,
+                "diff_pair_width": 0.2,
+                "line_style": 0,
+                "microvia_diameter": 0.3,
+                "microvia_drill": 0.1,
+                "name": "HV_HighVoltage",
+                "pcb_color": "rgba(255, 0, 0, 0.000)",
+                "schematic_color": "rgba(200, 0, 0, 0.000)",
+                "track_width": 0.4,
+                "via_diameter": 0.8,
+                "via_drill": 0.4,
+                "wire_width": 6
+            },
+            {
+                "bus_width": 12,
+                "clearance": 0.2,
+                "diff_pair_gap": 0.25,
+                "diff_pair_via_gap": 0.25,
+                "diff_pair_width": 0.2,
+                "line_style": 0,
+                "microvia_diameter": 0.3,
+                "microvia_drill": 0.1,
+                "name": "HV_IsoGround",
+                "pcb_color": "rgba(0, 100, 0, 0.000)",
+                "schematic_color": "rgba(0, 150, 0, 0.000)",
+                "track_width": 0.25,
+                "via_diameter": 0.8,
+                "via_drill": 0.4,
+                "wire_width": 6
+            }
+        ],
+        "meta": {
+            "version": 3
+        }
+    },
+    "sheets": [
+        {
+            "filename": "temperature_controller.kicad_sch",
+            "name": "Main Schematic",
+            "page_number": 0,
+            "path": "temperature_controller.kicad_sch"
+        }
+    ],
+    "text_variables": {}
+}

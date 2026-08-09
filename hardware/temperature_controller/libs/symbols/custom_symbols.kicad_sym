@@ -1,0 +1,141 @@
+(kicad_symbol_lib (version 20231220) (generator kicad_symbol_editor)
+  (symbol "IM03GR_DPDT" (in_bom yes) (on_board yes) (exclude_from_sim no)
+    (property "Reference" "U" (at 5 10 0)
+      (effects (font (size 1.27 1.27)) (justify left)))
+    (property "Value" "IM03GR" (at 5 -7.62 0)
+      (effects (font (size 1.27 1.27)) (justify left)))
+    (property "Footprint" "Relay_SMD:IM03GR_GullWing" (at 0 -15.24 0)
+      (effects (font (size 1.27 1.27)) hide))
+    (property "Datasheet" "https://www.te.com/en-us/product-1-1462037-4.html" (at 0 -17.78 0)
+      (effects (font (size 1.27 1.27)) hide))
+    (property "ki_description" "Signal Relay DPDT, 5VDC coil, 178ohm, SMT gull-wing, TE Connectivity"
+      (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    
+    ;; Main body rectangle
+    (symbol "IM03GR_DPDT_0_1"
+      (rectangle (start -7.62 7.62) (end 7.62 -7.62)
+        (stroke (width 0.254) (type default))
+        (fill (type background))
+      )
+    )
+    
+    ;; Pole 1 switching symbol
+    (symbol "IM03GR_DPDT_1_1"
+      (polyline
+        (pts (xy -2.54 2.54) (xy 0 2.54) (xy 2.54 3.81))
+        (stroke (width 0.254) (type default))
+      )
+      (circle (center -3.556 2.54) (radius 0.508)
+        (stroke (width 0.254) (type default)) (fill (type none))
+      )
+      (circle (center 3.556 5.08) (radius 0.508)
+        (stroke (width 0.254) (type default)) (fill (type none))
+      )
+      (circle (center 3.556 0) (radius 0.508)
+        (stroke (width 0.254) (type default)) (fill (type none))
+      )
+      
+      ;; Pin labels for pole 1
+      (pin passive line (at -10.16 2.54 0) (length 2.54)
+        (name "COM1/TC+_IN" (effects (font (size 1.27 1.27))))
+        (number "2" (effects (font (size 1.27 1.27))))
+      )
+      (pin passive line (at 10.16 5.08 180) (length 2.54)
+        (name "NO1/TC+_OUT" (effects (font (size 1.27 1.27))))
+        (number "1" (effects (font (size 1.27 1.27))))
+      )
+      (pin passive line (at 10.16 0 180) (length 2.54)
+        (name "NC1" (effects (font (size 1.27 1.27))))
+        (number "3" (effects (font (size 1.27 1.27))))
+      )
+    )
+    
+    ;; Pole 2 switching symbol  
+    (symbol "IM03GR_DPDT_1_2"
+      (polyline
+        (pts (xy -2.54 -2.54) (xy 0 -2.54) (xy 2.54 -0.762))
+        (stroke (width 0.254) (type default))
+      )
+      (circle (center -3.556 -2.54) (radius 0.508)
+        (stroke (width 0.254) (type default)) (fill (type none))
+      )
+      (circle (center 3.556 0) (radius 0.508)
+        (stroke (width 0.254) (type default)) (fill (type none))
+      )
+      (circle (center 3.556 -5.08) (radius 0.508)
+        (stroke (width 0.254) (type default)) (fill (type none))
+      )
+      
+      ;; Pin labels for pole 2
+      (pin passive line (at -10.16 -2.54 0) (length 2.54)
+        (name "COM2/TC-_IN" (effects (font (size 1.27 1.27))))
+        (number "5" (effects (font (size 1.27 1.27))))
+      )
+      (pin passive line (at 10.16 0 180) (length 2.54)
+        (name "NO2/TC-_OUT" (effects (font (size 1.27 1.27))))
+        (number "4" (effects (font (size 1.27 1.27))))
+      )
+      (pin passive line (at 10.16 -5.08 180) (length 2.54)
+        (name "NC2" (effects (font (size 1.27 1.27))))
+        (number "6" (effects (font (size 1.27 1.27))))
+      )
+    )
+    
+    ;; Coil symbol
+    (symbol "IM03GR_DPDT_1_3"
+      (arc (start 0 -6.35) (mid 1.27 -7.62) (end 0 -8.89)
+        (stroke (width 0.254) (type default))
+      )
+      (arc (start 0 -8.89) (mid -1.27 -7.62) (end 0 -6.35)
+        (stroke (width 0.254) (type default))
+      )
+      
+      (pin passive line (at 0 -11.43 90) (length 2.54)
+        (name "COIL+" (effects (font (size 1.27 1.27))))
+        (number "7" (effects (font (size 1.27 1.27))))
+      )
+      (pin passive line (at 0 -3.81 270) (length 2.54)
+        (name "COIL-" (effects (font (size 1.27 1.27))))
+        (number "8" (effects (font (size 1.27 1.27))))
+      )
+    )
+  )
+
+  ;; ================================================================
+  ;; Pilot LED TH 2x3x4.7mm (axial, soldered bottom, light through hole)
+  ;; ================================================================
+  (symbol "LED_PILOT_2x3x4.7mm" (in_bom yes) (on_board yes) (exclude_from_sim no)
+    (property "Reference" "LED" (at 0 -5.08 0)
+      (effects (font (size 1.27 1.27))))
+    (property "Value" "PILOT_LED" (at 0 5.08 0)
+      (effects (font (size 1.27 1.27))))
+    (property "Footprint "LED_THT:LED_D2.0mm_Horizontal_O1.27mm_Z2.0mm" (at 20 0 0)
+      (effects (font (size 1.27 1.27)) hide))
+    (property "Datasheet "" (at 40 0 0)
+      (effects (font (size 1.27 1.27)) hide))
+    (property "ki_description" "Axial pilot LED 2x3x4.7mm diffused square, THT, bottom-solder top-light"
+      (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+
+    (symbol "LED_PILOT_2x3x4.7mm_0_1"
+      (polyline
+        (pts (xy -1.27 -1.27) (xy -1.27 1.27) (xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 -1.27))
+        (stroke (width 0.254) (type default)) (fill (type none))
+      )
+      (polyline
+        (pts (xy -2.54 0) (xy -1.27 0) (xy -1.27 1.27) (xy 0 1.27) (xy 0 -1.27) (xy -1.27 -1.27) (xy -1.27 0) (xy -2.54 0))
+        (stroke (width 0) (type default)) (fill (type none))
+      )
+      (polyline
+        (pts (xy 1.27 1.27) (xy 2.54 1.27) (xy 2.54 -1.27) (xy 1.27 -1.27))
+        (stroke (width 0) (type default)) (fill (type outline))
+      )
+    )
+
+    (symbol "LED_PILOT_2x3x4.7mm_1_1"
+      (pin passive line (at -5.08 0 0) (length 2.54)
+        (name "K" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+      (pin passive line (at 5.08 0 180) (length 2.54)
+        (name "A" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+    )
+  )
+)

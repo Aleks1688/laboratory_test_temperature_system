@@ -1,0 +1,188 @@
+(kicad_footprint_lib (version 20231220) (generator pcbnew)
+  
+  ;; ================================================================
+  ;; FOOTPRINT: AXICOM/TE IM03GR DPDT Signal Relay
+  ;; SMT Gull-Wing, 10 x 6 mm body
+  ;; Datasheet: TE Connectivity 1-1462037-4
+  ;; ================================================================
+  (footprint "IM03GR_GullWing" (layer "F.Cu")
+    (descr "AXICOM IM03GR signal relay, DPDT, SMT gull-wing, body 10x6x5.65mm")
+    (tags "relay signal dpdt smt gull-wing axicom te im03gr")
+    (property "Sheetfile" "") (property "Sheetname" "")
+    (attr through_hole)
+    
+    (clearance 2.5)  ; HV safety clearance!
+    
+    ;; Pad 1 - NO1 (TC+ out) - top right
+    (pad "1" thru_hole rect (at 5.0 3.0) (size 1.8 1.0) (layers "*.Cu" "*.Mask") (drill (oval 0.9 0.5)))
+    ;; Pad 2 - COM1 (TC+ in) - left side upper
+    (pad "2" thru_hole circle (at -5.0 3.0) (size 1.8 1.0) (layers "*.Cu" "*.Mask") (drill (oval 0.9 0.5)))
+    ;; Pad 3 - NC1 - left side lower
+    (pad "3" thru_hole circle (at -5.0 1.0) (size 1.8 1.0) (layers "*.Cu" "*.Mask") (drill (oval 0.9 0.5)))
+    ;; Pad 4 - NO2 (TC- out) - right side lower
+    (pad "4" thru_hole circle (at 5.0 -1.0) (size 1.8 1.0) (layers "*.Cu" "*.Mask") (drill (oval 0.9 0.5)))
+    ;; Pad 5 - COM2 (TC- in) - left side bottom
+    (pad "5" thru_hole circle (at -5.0 -1.0) (size 1.8 1.0) (layers "*.Cu" "*.Mask") (drill (oval 0.9 0.5)))
+    ;; Pad 6 - NC2 - left side very bottom
+    (pad "6" thru_hole circle (at -5.0 -3.0) (size 1.8 1.0) (layers "*.Cu" "*.Mask") (drill (oval 0.9 0.5)))
+    ;; Pad 7 - COIL+ - center top
+    (pad "7" smd rect (at 0 4.25) (size 2.0 1.2) (layers "*.Cu" "*.Paste" "*.Mask"))
+    ;; Pad 8 - COIL- - center bottom
+    (pad "8" smd rect (at 0 -4.25) (size 2.0 1.2) (layers "*.Cu" "*.Paste" "*.Mask"))
+    
+    ;; Silkscreen outline (body)
+    (fp_line (start -5.08 3.556) (end 5.08 3.556)
+      (stroke (width 0.12) (type solid)) (layer "F.SilkS"))
+    (fp_line (start 5.08 3.556) (end 5.08 -3.556)
+      (stroke (width 0.12) (type solid)) (layer "F.SilkS"))
+    (fp_line (start 5.08 -3.556) (end -5.08 -3.556)
+      (stroke (width 0.12) (type solid)) (layer "F.SilkS"))
+    (fp_line (start -5.08 -3.556) (end -5.08 3.556)
+      (stroke (width 0.12) (type solid)) (layer "F.SilkS"))
+    
+    ;; Courtyard
+    (fp_line (start -6.5 5.0) (end 6.5 5.0)
+      (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+    (fp_line (start 6.5 5.0) (end 6.5 -5.0)
+      (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+    (fp_line (start 6.5 -5.0) (end -6.5 -5.0)
+      (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+    (fp_line (start -6.5 -5.0) (end -6.5 5.0)
+      (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+    
+    ;; Pin 1 marker
+    (fp_text user "1" (at 5.5 4.5) (layer "F.SilkS")
+      (effects (font (size 0.8 0.8) (thickness 0.15))))
+    
+    (fp_text reference "U**" (at 0 6.35) (layer "F.Fab")
+      (effects (font (size 1 1) (thickness 0.15))))
+    (fp_text value "IM03GR" (at 0 -6.35) (layer "F.Fab")
+      (effects (font (size 1 1) (thickness 0.15))))
+    (model "${KICAD8_3DMODEL_DIR}/Relay_SMD.3dshapes/IM03GR.wrl"
+      (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))
+  )
+
+  ;; ================================================================
+  ;; FOOTPRINT: Pilot LED TH 2x3x4.7mm (axial square diffused)
+  ;; Soldered on BOTTOM layer, light shines UP through hole in PCB
+  ;; Typical: Lite-On LTST-A283KGK or similar
+  ;; ================================================================
+  (footprint "LED_PILOT_2x3x4.7mm_TH_BottomMount" (layer "B.Cu")
+    (descr "Axial pilot LED 2x3x4.7mm square diffused, THT, soldered on bottom, light up through hole")
+    (tags "led pilot axial 2x3 2x5 diffused square tht bottom-mount panel-indicator")
+    (property "Sheetfile" "") (property "Sheetname" "")
+    (attr through_hole)
+    
+    ;; Pad 1 - Cathode (flat side of LED body = cathode usually)
+    (pad "1" thru_hole circle (at -2.5 0) (size 2.0 2.0) (layers "*.Cu" "*.Mask")
+      (drill (circle 1.0))
+    )
+    ;; Pad 2 - Anode
+    (pad "2" thru_hole circle (at 2.5 0) (size 2.0 2.0) (layers "*.Cu" "*.Mask")
+      (drill (circle 1.0))
+    )
+    
+    ;; Light pipe hole indication (silkscreen circle on TOP layer for drilling)
+    (fp_circle (center 0 0) (end 1.15 0)
+      (stroke (width 0.12) (type solid)) (layer "F.SilkS")
+      (fill none)
+    )
+    (fp_circle (center 0 0) (end 1.15 0)
+      (stroke (width 0.12) (type solid)) (layer "B.SilkS")
+      (fill none)
+    )
+    
+    ;; Body outline on silkscreen (bottom view)
+    (fp_rect (start -1.5 -1.5) (end 1.5 1.5)
+      (stroke (width 0.12) (type solid)) (layer "B.SilkS")
+    )
+    
+    ;; Cathode flat indicator
+    (fp_line (start -1.5 -1.5) (end -1.5 1.5)
+      (stroke (width 0.3) (type solid)) (layer "B.SilkS")
+    )
+    
+    ;; Courtyard
+    (fp_line (start -4 3) (end 4 3)
+      (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+    (fp_line (start 4 3) (end 4 -3)
+      (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+    (fp_line (start 4 -3) (end -4 -3)
+      (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+    (fp_line (start -4 -3) (end -4 3)
+      (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+    
+    ;; Fab layer - LED body outline
+    (fp_rect (start -1.5 -1.5) (end 1.5 1.5)
+      (stroke (width 0.1) (type solid)) (layer "B.Fab")
+      (fill (type none))
+    )
+    
+    (fp_text reference "LED**" (at 0 4) (layer "B.Fab")
+      (effects (font (size 1 1) (thickness 0.15))))
+    (fp_text value "PILOT_LED" (at 0 -4) (layer "B.Fab")
+      (effects (font (size 1 1) (thickness 0.15))))
+    
+    ;; Assembly note
+    (fp_text user "SOLDER\nBOTTOM\nLIGHT\nUP" (at 0 0) (layer "B.Fab")
+      (effects (font (size 0.6 0.6) (thickness 0.1)) (justify middle)))
+      
+    ;; 3D model placeholder
+    (model "${KICAD8_3DMODEL_DIR}/LED_THT.3dshapes/LED_D2.0mm_Horizontal_O1.27mm_Z2.0mm.wrl"
+      (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))
+  )
+
+  ;; ================================================================
+  ;; FOOTPRINT: Thermocouple Connector (2-pin, 5.08mm pitch)
+  ;; Phoenix-style pluggable terminal block
+  ;; For HV zone - increased creepage!
+  ;; ================================================================
+  (footprint "TerminalBlock_Phoenix_PT-1.5-2-5.0-Horizontal" (layer "F.Cu")
+    (descr "Phoenix Contact terminal block, 2 pin, 5.08mm pitch, horizontal, HV rated")
+    (tags "terminal block connector phoenix 5.08mm 2pin horizontal hv thermocouple")
+    (property "Sheetfile" "") (property "Sheetname" "")
+    (attr through_hole)
+    
+    (clearance 5.0)  ; HV between TC connectors!
+    
+    ;; Pin 1 - TC+
+    (pad "1" thru_hole rect (at -2.54 0) (size 2.5 2.5) (layers "*.Cu" "*.Mask")
+      (drill (circle 1.3))
+    )
+    ;; Pin 2 - TC-
+    (pad "2" thru_hole circle (at 2.54 0) (size 2.5 2.5) (layers "*.Cu" "*.Mask")
+      (drill (circle 1.3))
+    )
+    
+    ;; Silkscreen
+    (fp_line (start -5.08 3.81) (end 5.08 3.81)
+      (stroke (width 0.12) (type solid)) (layer "F.SilkS"))
+    (fp_line (start 5.08 3.81) (end 5.08 -3.81)
+      (stroke (width 0.12) (type solid)) (layer "F.SilkS"))
+    (fp_line (start 5.08 -3.81) (end -5.08 -3.81)
+      (stroke (width 0.12) (type solid)) (layer "F.SilkS"))
+    (fp_line (start -5.08 -3.81) (end -5.08 3.81)
+      (stroke (width 0.12) (type solid)) (layer "F.SilkS"))
+    
+    ;; Pin labels
+    (fp_text user "TC+" (at -2.54 5.08) (layer "F.SilkS")
+      (effects (font (size 1 1) (thickness 0.15)) (justify bottom)))
+    (fp_text user "TC-" (at 2.54 5.08) (layer "F.SilkS")
+      (effects (font (size 1 1) (thickness 0.15)) (justify bottom)))
+    
+    ;; Courtyard with extra margin for HV
+    (fp_line (start -6.5 5) (end 6.5 5)
+      (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+    (fp_line (start 6.5 5) (end 6.5 -5)
+      (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+    (fp_line (start 6.5 -5) (end -6.5 -5)
+      (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+    (fp_line (start -6.5 -5) (end -6.5 5)
+      (stroke (width 0.05) (type solid)) (layer "F.CrtYd"))
+    
+    (fp_text reference "J**" (at 0 6.5) (layer "F.Fab")
+      (effects (font (size 1 1) (thickness 0.15))))
+    (fp_text value "TC_CONN" (at 0 -6.5) (layer "F.Fab")
+      (effects (font (size 1 1) (thickness 0.15))))
+  )
+)
